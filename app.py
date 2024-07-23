@@ -1,6 +1,9 @@
 import streamlit as st
 from openai import OpenAI
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 client = OpenAI()
 
@@ -27,13 +30,19 @@ if prompt := st.chat_input("What is your question?"):
     completion = client.chat.completions.create(
     model="gpt-4o-mini",
     messages=[
-        {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
-        {"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
-    ]
+            {"role": "system", "content": "You are a personal assistant that has access to the user's past location history, and can answer questions about what places they have visited."}] + [
+            {"role": m["role"], "content": m["content"]}
+            for m in st.session_state.messages
+        ]
     )
+
+    # Extract the assistant's message content
+    response_message = completion.choices[0].message.content
 
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
-        st.markdown(completion.choices[0].message)
+        st.markdown(response_message)
     # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": completion.choices[0].message})
+    st.session_state.messages.append({"role": "assistant", "content": response_message})
+
+
