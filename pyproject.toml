@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "streamlit"
+name = "WhereAmAI"
 version = "0.1.0"
 description = ""
 authors = ["Max Frings <max.frings@klarna.com>"]
