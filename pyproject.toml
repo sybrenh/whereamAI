@@ -6,7 +6,8 @@ authors = ["Max Frings <max.frings@klarna.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.12"
+streamlit = "^1.36.0"
 
 
 [build-system]
